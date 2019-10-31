@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: #102346;
+  height: 50vh;
+  justify-content: space-around;
+  padding: 0 10px;
+}
+
+.messenger {
+  display: flex;
+  height: 100vh;
+}
+
+.conversation-list {
+  flex-grow: 1;
+  background-color: #102346;
+  color: #fff;
+}
+
+.chat-box {
+  flex-grow: 3;
+  background-color: #fff;
+}
