@@ -4,7 +4,7 @@ import Messenger from './components/messenger/index.js'
 
 function App() {
   return (
-    <Messenger />
+    <Login />
   )
 }
 

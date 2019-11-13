@@ -8,8 +8,8 @@
 .inputContainer {
   display: flex;
   flex-direction: column;
-  background-color: #102346;
-  height: 50vh;
+  background-color: #7798d4;
+  height: 70vh;
   justify-content: space-around;
   padding: 0 10px;
 }
