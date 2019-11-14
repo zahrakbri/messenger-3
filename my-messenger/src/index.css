@@ -29,3 +29,13 @@
   flex-grow: 3;
   background-color: #fff;
 }
+
+.conversation {
+  display: flex;
+  border: 1px solid yellow;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+}

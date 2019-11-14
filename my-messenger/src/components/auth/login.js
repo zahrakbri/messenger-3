@@ -7,10 +7,15 @@ class Login extends React.Component {
   constructor () {
     super ()
     this.state = {
-      username: '',
-      password: '',
+      fields: {
+        email: '',
+        password: ''
+      },
+      error: {
+        email: '',
+        password: ''
+      },
       clicked: false,
-      username_error: null
     }
     // this.handleClick = this.handleClick.bind(this)
   }
@@ -19,14 +24,30 @@ class Login extends React.Component {
     this.setState({clicked: !this.state.clicked})
   }
 
-  handleValidation () {
-    let error = validate('username', this.state.username)
+  handleValidation (e) {
+    let name = e.target.name
+    let error = validate(name, this.state.fields[name])
     console.log('error:::', error)
-    this.setState({username_error: error})
+    
+    this.setState({...this.state, error: {...this.state.error, [name]: error}})
+  }
+
+  handleChange (event) {
+    // let fields = this.state.fields
+    // fields['username'] = event.target.value
+    // this.setState({fields})
+
+    let name = event.target.name
+
+    this.setState(
+      { ...this.state, fields: { ...this.state.fields, [name]: event.target.value} },
+      () => {console.log('####',this.state.fields.email)}
+    )
+    console.log(this.state.fields.email, event.target.value)
   }
 
   render () {
-    console.log('state:::', this.state)
+    console.log(this.state.fields.email)
     return (
       <div className='container'>
         <div className='inputContainer'>
@@ -39,18 +60,23 @@ class Login extends React.Component {
             }
           />
           <input
-            name='username'
-            onChange={(event) => this.setState({username: event.target.value})}
-            onBlur={() => this.handleValidation()}
+            name='email'
+            onChange={(event) => this.handleChange(event)}
+            onBlur={(e) => this.handleValidation(e)}
           />
-          {this.state.username_error !== null && this.state.username !== 'zzz' &&
-            <p style={{color: 'red'}}>{this.state.username_error}</p>
+          {this.state.error.email !== null &&
+            <p style={{color: 'red'}}>{this.state.error.email}</p>
           }
           <input
             type='password'
+            name='password'
             value={this.state.password}
-            onChange={(e) => this.setState({password: e.target.value})}
+            onChange={(e) => this.handleChange(e)}
+            onBlur={(e) => this.handleValidation(e)}
           />
+          {this.state.error.password !== null &&
+            <p style={{color: 'red'}}>{this.state.error.password}</p>
+          }
           <button
             onClick={() => this.handleClick()}
             onMouseOver={() => console.log('4444')}
