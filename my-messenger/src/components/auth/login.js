@@ -1,11 +1,12 @@
 import React from 'react'
 import logo from '../../logo.svg'
 import validate from '../../validation/ValidateFunction'
+import { Link } from 'react-router-dom'
 // import { TestComponent, TestComponent2 } from '../../test.js'
 
 class Login extends React.Component {
   constructor () {
-    super ()
+    super()
     this.state = {
       fields: {
         email: '',
@@ -15,21 +16,21 @@ class Login extends React.Component {
         email: '',
         password: ''
       },
-      clicked: false,
+      clicked: false
     }
     // this.handleClick = this.handleClick.bind(this)
   }
 
   handleClick () {
-    this.setState({clicked: !this.state.clicked})
+    this.setState({ clicked: !this.state.clicked })
   }
 
   handleValidation (e) {
     let name = e.target.name
     let error = validate(name, this.state.fields[name])
     console.log('error:::', error)
-    
-    this.setState({...this.state, error: {...this.state.error, [name]: error}})
+
+    this.setState({ ...this.state, error: { ...this.state.error, [name]: error } })
   }
 
   handleChange (event) {
@@ -40,8 +41,8 @@ class Login extends React.Component {
     let name = event.target.name
 
     this.setState(
-      { ...this.state, fields: { ...this.state.fields, [name]: event.target.value} },
-      () => {console.log('####',this.state.fields.email)}
+      { ...this.state, fields: { ...this.state.fields, [name]: event.target.value } },
+      () => { console.log('####', this.state.fields.email) }
     )
     console.log(this.state.fields.email, event.target.value)
   }
@@ -65,7 +66,7 @@ class Login extends React.Component {
             onBlur={(e) => this.handleValidation(e)}
           />
           {this.state.error.email !== null &&
-            <p style={{color: 'red'}}>{this.state.error.email}</p>
+            <p style={{ color: 'red' }}>{this.state.error.email}</p>
           }
           <input
             type='password'
@@ -75,13 +76,14 @@ class Login extends React.Component {
             onBlur={(e) => this.handleValidation(e)}
           />
           {this.state.error.password !== null &&
-            <p style={{color: 'red'}}>{this.state.error.password}</p>
+            <p style={{ color: 'red' }}>{this.state.error.password}</p>
           }
           <button
             onClick={() => this.handleClick()}
             onMouseOver={() => console.log('4444')}
-            style={{ backgroundColor: this.state.clicked ? 'lightblue' : '#fff'}}
-          > login </button>
+            style={{ backgroundColor: this.state.clicked ? 'lightblue' : '#fff' }}
+          > <Link to='/messenger/'>Login</Link> </button>
+
         </div>
       </div>
     )

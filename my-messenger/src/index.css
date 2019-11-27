@@ -28,6 +28,9 @@
 .chat-box {
   flex-grow: 3;
   background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .conversation {
@@ -38,4 +41,59 @@
 .info {
   display: flex;
   flex-direction: column;
+}
+
+.header {
+  background-color: #cdcdfb;
+  height: 50px;
+}
+
+.footer {
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer img {
+  cursor: pointer;
+}
+
+.chat-screen {
+  background-image: url('./cayt.jpg');
+  flex-grow: 1;
+  background-size: cover;
+  overflow-y: scroll
+}
+
+.new-message {
+  flex-grow: 1;
+}
+
+.myinput {
+  border: 1px solid hotpink;
+  padding: 5px 20px;
+  border-radius: 4px;
+}
+
+.error {
+  font-size: 12px;
+  color: red;
+  text-align: right;
+}
+
+.delete-btn {
+  background-color: red;
+  color: #fff;
+  border: none
+}
+
+.save-btn {
+  background-color: green;
+  color: #fff;
+}
+
+.default-btn {
+  background-color: #fff;
+  color: green
 }

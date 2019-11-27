@@ -1,10 +1,9 @@
 import React from 'react'
-import logo from '../../logo.svg'
 import Conversation from './conversation'
 
 export default class ConversationList extends React.Component {
   constructor () {
-    super ()
+    super()
     this.state = {
       convList: [
         {
