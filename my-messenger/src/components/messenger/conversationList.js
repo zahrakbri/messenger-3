@@ -1,10 +1,12 @@
 import React from 'react'
 import Conversation from './conversation'
+import axios from 'axios'
 
 export default class ConversationList extends React.Component {
   constructor () {
     super()
     this.state = {
+      suggestUsers: [],
       convList: [
         {
           name: 'Mahdi',
@@ -33,9 +35,36 @@ export default class ConversationList extends React.Component {
       ]
     }
   }
+
+  handleSearch (e) {
+    if (e) {
+      var data = new FormData()
+      data.append('token', window.localStorage.getItem('token'))
+      data.append('query', e)
+      data.append('size', 4)
+
+      axios.post('http://click.7grid.ir/explore/search/contacts/',data)
+        .then((response) => {
+          this.setState({suggestUsers: response.data.data.users})
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+  }
   render () {
     return (
       <div className='conversation-list'>
+        <input
+          onChange={(e) => this.handleSearch(e.target.value)}
+        />
+        {
+          this.state.suggestUsers.map((user) => {
+            return (
+              <p key={user.id}>{user.email}</p>
+            )
+          })
+        }
         {
           this.state.convList.map((conv) => {
             return (

@@ -2,6 +2,7 @@ import React from 'react'
 import logo from '../../logo.svg'
 import validate from '../../validation/ValidateFunction'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 // import { TestComponent, TestComponent2 } from '../../test.js'
 
 class Login extends React.Component {
@@ -22,7 +23,16 @@ class Login extends React.Component {
   }
 
   handleClick () {
-    this.setState({ clicked: !this.state.clicked })
+    axios.post('http://click.7grid.ir/auth/signin/', {
+      email: this.state.fields.email,
+      password: this.state.fields.password
+    })
+      .then(function (response) {
+        window.localStorage.setItem('token', response.data.data.token)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   handleValidation (e) {
@@ -82,7 +92,7 @@ class Login extends React.Component {
             onClick={() => this.handleClick()}
             onMouseOver={() => console.log('4444')}
             style={{ backgroundColor: this.state.clicked ? 'lightblue' : '#fff' }}
-          > <Link to='/messenger/'>Login</Link> </button>
+          >Login</button>
 
         </div>
       </div>
