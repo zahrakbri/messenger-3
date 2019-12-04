@@ -3,9 +3,10 @@ import { connect } from 'react-redux'
 
 const mapStateToProps = (state) => {
   console.log('state:::::', state)
-  return{
-  name: state.name
-}}
+  return {
+    name: state.name
+  }
+}
 
 const HeaderContainer = connect(mapStateToProps)(Header)
 

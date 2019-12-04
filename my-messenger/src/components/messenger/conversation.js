@@ -18,7 +18,6 @@ class Conversation extends React.Component {
   }
 }
 
-
 const mapDispatchToProps = (dispatch) => ({
   dispatch: dispatch
 })

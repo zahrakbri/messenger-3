@@ -1,9 +1,8 @@
 import React from 'react'
-import logo from '../../logo.svg'
 import validate from '../../validation/ValidateFunction'
 import { Link } from 'react-router-dom'
 import MyInput from './input'
-import Button from './button';
+import Button from './button'
 // import { TestComponent, TestComponent2 } from '../../test.js'
 
 class SignUp extends React.Component {
@@ -24,9 +23,9 @@ class SignUp extends React.Component {
     // this.handleClick = this.handleClick.bind(this)
   }
 
-  handleChange(key, value) {
+  handleChange (key, value) {
     console.log('####', key, value)
-    this.setState({ ...this.state, fields: { ...this.state.fields, [key]: value }})
+    this.setState({ ...this.state, fields: { ...this.state.fields, [key]: value } })
   }
   render () {
     console.log(this.state)

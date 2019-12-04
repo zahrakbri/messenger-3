@@ -1,13 +1,13 @@
 import React from 'react'
 import sendIcon from '../../send.png'
 import HeaderContainer from '../../container/HeaderContainer'
-import ChatScreen from './chatScreen';
-import Footer from './footer';
+import ChatScreen from './chatScreen'
+import Footer from './footer'
 import Header from './header'
 
 export default class ChatBox extends React.Component {
   constructor () {
-    super ()
+    super()
     this.state = {
       newMessage: ''
     }

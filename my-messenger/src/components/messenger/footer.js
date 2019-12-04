@@ -5,7 +5,7 @@ import { sendNewMessage } from '../../actions/conversation'
 
 class Footer extends React.Component {
   constructor () {
-    super ()
+    super()
     this.state = {
       newMessage: ''
     }
@@ -21,11 +21,11 @@ class Footer extends React.Component {
         <input
           className='new-message'
           value={this.state.newMessage}
-          onChange={(e) => this.setState({newMessage: e.target.value})}
+          onChange={(e) => this.setState({ newMessage: e.target.value })}
         />
         <img
           width='40px'
-          onClick={() => this.sendMessage() }
+          onClick={() => this.sendMessage()}
           src={sendIcon} />
       </div>
     )

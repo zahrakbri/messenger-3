@@ -1,7 +1,6 @@
 import React from 'react'
 
 export default class MyInput extends React.Component {
-
   render () {
     return (
       <>
