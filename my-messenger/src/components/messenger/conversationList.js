@@ -1,40 +1,19 @@
 import React from 'react'
 import Conversation from './conversation'
 import axios from 'axios'
+import { getConversationList } from '../../actions/conversation'
+import { connect } from 'react-redux'
 
-export default class ConversationList extends React.Component {
+class ConversationList extends React.Component {
   constructor () {
     super()
     this.state = {
       suggestUsers: [],
-      convList: [
-        {
-          name: 'Mahdi',
-          latestMessage: 'Hi',
-          id: '300'
-        },
-        {
-          name: 'Mahyar',
-          latestMessage: 'Hi',
-          id: '100'
-        },
-        {
-          name: 'Hamed',
-          latestMessage: 'Hi',
-          id: '5'
-        },
-        {
-          name: 'Arsham',
-          latestMessage: 'Hi',
-          id: '250'
-        },
-        {
-          name: 'Parisa',
-          id: '2'
-        }
-      ]
+      myId: localStorage.getItem('id')
     }
   }
+
+
 
   handleSearch (e) {
     if (e) {
@@ -52,6 +31,35 @@ export default class ConversationList extends React.Component {
         });
     }
   }
+
+  componentDidMount () {
+    axios.get('http://click.7grid.ir/conversation/', {
+      params: {
+        token: localStorage.getItem('token')
+      }
+    })
+    .then((response) => {
+      console.log(response.data.data.conversation_details);
+      this.props.dispatch(getConversationList(response.data.data.conversation_details))
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+  }
+
+  createConversation(id) {
+    var data = new FormData()
+    data.append('token', window.localStorage.getItem('token'))
+    data.append('user_id', id)
+
+    axios.post('http://click.7grid.ir/conversation/',data)
+      .then((response) => {
+        console.log('res::', response.data)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
   render () {
     return (
       <div className='conversation-list'>
@@ -61,18 +69,39 @@ export default class ConversationList extends React.Component {
         {
           this.state.suggestUsers.map((user) => {
             return (
-              <p key={user.id}>{user.email}</p>
+              <p
+                key={user.id}
+                onClick={() => this.createConversation(user.id)}
+              >{user.email}</p>
             )
           })
         }
         {
-          this.state.convList.map((conv) => {
-            return (
-              <Conversation name={conv.name} key={conv.id} />
-            )
-          })
+          this.props.conversationList.map((conv) => (
+            conv.users.map((user) => {
+              if(user.id != this.state.myId) {
+                return (
+                  <Conversation
+                  unseen={conv.unseen_messages}
+                  user={user} key={user.id} />
+                )
+              } else {
+                return null
+              }
+            })
+          ))
         }
       </div>
     )
   }
 }
+
+const mapStateToProps = (state) => ({
+  conversationList: state.conversationList
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatch: dispatch
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ConversationList)

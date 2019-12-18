@@ -3,6 +3,7 @@ import logo from '../../logo.svg'
 import validate from '../../validation/ValidateFunction'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import { withRouter } from "react-router"
 // import { TestComponent, TestComponent2 } from '../../test.js'
 
 class Login extends React.Component {
@@ -27,8 +28,10 @@ class Login extends React.Component {
       email: this.state.fields.email,
       password: this.state.fields.password
     })
-      .then(function (response) {
+      .then((response) => {
         window.localStorage.setItem('token', response.data.data.token)
+        window.localStorage.setItem('id', response.data.data.profile.id)
+        this.props.history.push('/messenger/')
       })
       .catch(function (error) {
         console.log(error);
@@ -58,7 +61,7 @@ class Login extends React.Component {
   }
 
   render () {
-    console.log(this.state.fields.email)
+    console.log('props',this.props)
     return (
       <div className='container'>
         <div className='inputContainer'>
@@ -90,7 +93,6 @@ class Login extends React.Component {
           }
           <button
             onClick={() => this.handleClick()}
-            onMouseOver={() => console.log('4444')}
             style={{ backgroundColor: this.state.clicked ? 'lightblue' : '#fff' }}
           >Login</button>
 
@@ -100,4 +102,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login
+export default withRouter(Login)

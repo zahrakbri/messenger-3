@@ -7,7 +7,8 @@ const Init = {
       text: 'salam',
       id: 1
     }
-  ]
+  ],
+  conversationList: []
 }
 
 export default function conversation (state = Init, action) {
@@ -41,6 +42,12 @@ export default function conversation (state = Init, action) {
       return {
         ...state,
         messageList: newMessageList
+      }
+
+    case 'GET_CONVERSATION_LIST':
+      return {
+        ...state,
+        conversationList: action.payload
       }
 
     default:

@@ -7,10 +7,10 @@ class Conversation extends React.Component {
   render () {
     console.log('conv props:::', this.props)
     return (
-      <div className='conversation' onClick={() => this.props.dispatch(saveUsername(this.props.name))}>
+      <div className='conversation' onClick={() => this.props.dispatch(saveUsername(this.props.user.email))}>
         <img src={logo} width='30px' />
         <div className='info'>
-          <span>{this.props.name}</span>
+          <span>{this.props.user.email}</span>
           <span>salam</span>
         </div>
       </div>

@@ -13,3 +13,8 @@ export const editMessage = (text, index) => ({
   payload: text,
   index: index
 })
+
+export const getConversationList = (data) => ({
+  type: 'GET_CONVERSATION_LIST',
+  payload: data
+})
