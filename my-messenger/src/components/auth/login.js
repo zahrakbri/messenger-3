@@ -60,6 +60,14 @@ class Login extends React.Component {
     console.log(this.state.fields.email, event.target.value)
   }
 
+  componentDidMount () {
+    let test = [1, 2, 3]
+    test.map((num, index) => {
+      console.log('1111', num)
+      console.log('222', index)
+    })
+  }
+
   render () {
     console.log('props',this.props)
     return (

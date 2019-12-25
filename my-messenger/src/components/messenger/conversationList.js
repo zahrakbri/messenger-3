@@ -1,8 +1,10 @@
 import React from 'react'
 import Conversation from './conversation'
 import axios from 'axios'
-import { getConversationList } from '../../actions/conversation'
+import { getConversationListThunk } from '../../actions/conversation'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
+import Skeleton from 'react-loading-skeleton'
 
 class ConversationList extends React.Component {
   constructor () {
@@ -33,18 +35,7 @@ class ConversationList extends React.Component {
   }
 
   componentDidMount () {
-    axios.get('http://click.7grid.ir/conversation/', {
-      params: {
-        token: localStorage.getItem('token')
-      }
-    })
-    .then((response) => {
-      console.log(response.data.data.conversation_details);
-      this.props.dispatch(getConversationList(response.data.data.conversation_details))
-    })
-    .catch(function (error) {
-      console.log(error);
-    })
+    this.props.dispatch(getConversationListThunk())
   }
 
   createConversation(id) {
@@ -57,51 +48,61 @@ class ConversationList extends React.Component {
         console.log('res::', response.data)
       })
       .catch(function (error) {
-        console.log(error);
+        console.log('eee:::',error.response);
       });
   }
   render () {
-    return (
-      <div className='conversation-list'>
-        <input
-          onChange={(e) => this.handleSearch(e.target.value)}
-        />
-        {
-          this.state.suggestUsers.map((user) => {
-            return (
-              <p
-                key={user.id}
-                onClick={() => this.createConversation(user.id)}
-              >{user.email}</p>
-            )
-          })
-        }
-        {
-          this.props.conversationList.map((conv) => (
-            conv.users.map((user) => {
-              if(user.id != this.state.myId) {
-                return (
-                  <Conversation
-                  unseen={conv.unseen_messages}
-                  user={user} key={user.id} />
-                )
-              } else {
-                return null
-              }
+    if (this.props.loading) {
+      return (
+        <div className='conversation-list-skeleton'>
+          <Skeleton count={10} height={50}/>
+        </div>
+      )
+    } else {
+      return (
+        <div className='conversation-list'>
+          <input
+            onChange={(e) => this.handleSearch(e.target.value)}
+          />
+          {
+            this.state.suggestUsers.map((user) => {
+              return (
+                <p
+                  key={user.id}
+                  onClick={() => this.createConversation(user.id)}
+                >{user.email}</p>
+              )
             })
-          ))
-        }
-      </div>
-    )
+          }
+          {
+            this.props.conversationList.map((conv) => (
+              conv.users.map((user) => {
+                if(user.id != this.state.myId) {
+                  return (
+                    <Conversation
+                    unseen={conv.unseen_messages}
+                    user={user} key={user.id} />
+                  )
+                } else {
+                  return null
+                }
+              })
+            ))
+          }
+        </div>
+      )
+    }
   }
 }
 
 const mapStateToProps = (state) => ({
-  conversationList: state.conversationList
+  conversationList: state.conversationList,
+  loading: state.loading,
+  error: state.error
 })
 
 const mapDispatchToProps = (dispatch) => ({
   dispatch: dispatch
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ConversationList)
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ConversationList))

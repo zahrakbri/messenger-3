@@ -1,14 +1,10 @@
 
 const Init = {
-  name: 'jjj',
-  // newMessage: '',
-  messageList: [
-    {
-      text: 'salam',
-      id: 1
-    }
-  ],
-  conversationList: []
+  name: '',
+  messageList: [],
+  conversationList: [],
+  loading: false,
+  error: null
 }
 
 export default function conversation (state = Init, action) {
@@ -48,6 +44,26 @@ export default function conversation (state = Init, action) {
       return {
         ...state,
         conversationList: action.payload
+      }
+
+    case 'GET_CONVERSATION_LIST_BEGIN':
+      return {
+        ...state,
+        loading: true,
+        error: null
+      }
+
+    case 'GET_CONVERSATION_LIST_SUCCESS':
+      return {
+        ...state,
+        conversationList: action.payload,
+        loading: false
+      }
+
+    case 'GET_CONVERSATION_LIST_FAILURE':
+      return {
+        error: action.payload,
+        loading: false
       }
 
     default:

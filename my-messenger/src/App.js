@@ -7,11 +7,12 @@ import {
 import Login from './components/auth/login.js'
 import Messenger from './components/messenger/index.js'
 import SignUp from './components/auth/signup'
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
 import conversation from './reducer/conversation'
 import { Provider } from 'react-redux'
 
-const store = createStore(conversation)
+const store = createStore(conversation, applyMiddleware(thunk))
 
 function App () {
   return (

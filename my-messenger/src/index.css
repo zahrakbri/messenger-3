@@ -25,6 +25,9 @@
   color: #fff;
 }
 
+.conversation-list-skeleton {
+  min-width: 30vw;
+}
 .chat-box {
   flex-grow: 3;
   background-color: #fff;
